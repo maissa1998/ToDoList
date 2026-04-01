@@ -1,0 +1,29 @@
+<!-- Outer container for full-page background -->
+<div class="login-page">
+  <div class="glitter glitter1"></div>
+  <div class="glitter glitter2"></div>
+  <div class="login-form">
+    <h2 class="text-2xl font-bold mb-6 text-center">Login</h2>
+
+    <form (ngSubmit)="login()">
+      <div class="mb-4 pixel-input-group">
+    <label class="block text-gray-700 mb-1">Username</label>
+    <input type="text" [(ngModel)]="username" name="username"/>
+  </div>
+
+  <div class="mb-4 pixel-input-group">
+    <label class="block text-gray-700 mb-1">Password</label>
+    <input type="password" [(ngModel)]="password" name="password"/>
+  </div>
+
+      <div class="text-red-500 mb-4" *ngIf="error">{{ error }}</div>
+<div class="btn-group">
+    <button type="submit" class="pixel-btn">Login</button>
+    <button type="button" (click)="goToSignup()" class="pixel-btn signup-btn">
+      Sign Up
+    </button>
+  </div>
+
+    </form>
+  </div>
+</div>

@@ -1,0 +1,41 @@
+<div class="login-page">
+  <div class="glitter glitter1"></div>
+  <div class="glitter glitter2"></div>
+
+  <div class="login-form">
+    <h2 class="text-2xl font-bold mb-6 text-center">Sign Up</h2>
+
+    <form (ngSubmit)="signup()">
+
+      <div class="pixel-input-group">
+        <label>Username</label>
+        <input type="text" [(ngModel)]="user.username" name="username"/>
+      </div>
+
+      <div class="pixel-input-group">
+        <label>Email</label>
+        <input type="email" [(ngModel)]="user.email" name="email"/>
+      </div>
+
+      <div class="pixel-input-group">
+        <label>Password</label>
+        <input type="password" [(ngModel)]="user.password" name="password"/>
+      </div>
+
+      <div class="pixel-input-group">
+        <label>Confirm Password</label>
+        <input type="password" [(ngModel)]="confirmPassword" name="confirmPassword"/>
+      </div>
+
+      <div class="text-red-500 mb-4" *ngIf="error">{{ error }}</div>
+
+      <div class="btn-group">
+        <button type="submit" class="pixel-btn">Create Account</button>
+        <button type="button" (click)="goToLogin()" class="pixel-btn">
+          Back to Login
+        </button>
+      </div>
+
+    </form>
+  </div>
+</div>

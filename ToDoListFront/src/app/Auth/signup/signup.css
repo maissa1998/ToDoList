@@ -1,0 +1,151 @@
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow: hidden; 
+}
+.login-page {
+  position: fixed;
+  overflow: hidden;  
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background-image: url('/images/bg.gif');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+.login-form {
+  background-color: rgba(248, 134, 240, 0.85);
+  padding: 20px 20px;
+  border-radius: 1rem;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+  width: 26rem;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.login-form form {
+  width: 100%;
+  padding: 10px 10px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;   /* centers inputs + buttons */
+}
+
+/* Pixel Button */
+.pixel-btn {
+  font-family: 'PixelFont', sans-serif;
+  background: #9f69a6;
+  color: #fff;
+  border: none;
+  padding: 12px 30px;
+  font-size: 16px;
+  letter-spacing: 2px;
+  cursor: pointer;
+
+  margin-top: 10px;
+
+  box-shadow:
+    0 4px 0 #4e2c58,
+    0 6px 0 #000000;
+
+  border-radius: 4px;
+}
+
+/* Press effect */
+.pixel-btn:active {
+  transform: translateY(4px);
+  box-shadow:
+    0 2px 0 #3f1f43,
+    0 3px 0 #2e1431;
+}
+.pixel-input-group input {
+  font-family: 'PixelFont', sans-serif;
+
+  width: 80%;
+  padding: 14px;
+
+  background: #e9e9e9;
+  color: #000000;
+
+  border: 4px solid #1e1c1c;
+  outline: none;
+
+  font-size: 16px;
+  letter-spacing: 2px;
+
+  /* Pixel shadow effect */
+  box-shadow:
+    4px 4px 0 #000000,
+    inset -2px -2px 0 #bcbcbc,
+    inset 2px 2px 0 #ffffff;
+
+  image-rendering: pixelated;
+}
+.pixel-input-group {
+  box-sizing: border-box;
+  margin-bottom: 20px;
+}
+.pixel-input-group input:focus {
+  border-color: #9f69a6;
+
+  box-shadow:
+    4px 4px 0 #000000,
+    inset -2px -2px 0 #c89bd1,
+    inset 2px 2px 0 #ffffff;
+}
+.pixel-input-group input::placeholder {
+  color: #000000;
+  opacity: 1;
+}
+.btn-group {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+  margin-top: 10px;
+}
+.pixel-input-group label {
+  display: block;
+  margin-bottom: 6px;
+}
+.glitter {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 200%;
+  height: 200%;
+  pointer-events: none;
+  opacity: 0.7;
+}
+
+
+.glitter2 {
+  background-image: url('/images/aaa.gif');
+  background-repeat: repeat;
+  animation: glitterMove2 40s linear infinite;
+}
+button,
+button:hover,
+button:active {
+  cursor: url('/images/clickCursor.png') 16 16, pointer;
+}
+
+input,
+input:hover,
+input:focus,
+textarea,
+textarea:hover,
+textarea:focus {
+  cursor: url('/images/text.png') 16 16, text;
+}
