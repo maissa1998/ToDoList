@@ -5,6 +5,8 @@ import com.example.ToDoListBack.Config.JwtUtil;
 import com.example.ToDoListBack.Dto.UserResponseDTO;
 import com.example.ToDoListBack.Entity.User;
 import com.example.ToDoListBack.Service.Interface.UserService;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -42,7 +44,7 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody User request) {
+    public ResponseEntity<?> login(@RequestBody User request, HttpServletResponse response) {
 
         Optional<User> userOpt = userService.findByUsername(request.getUsername());
 
@@ -58,8 +60,15 @@ public class UserController {
 
         String token = jwtUtil.generateToken(user.getUsername(), "USER");
 
+        Cookie cookie = new Cookie("jwt", token);
+        cookie.setHttpOnly(true);
+        cookie.setSecure(false); // true in production (HTTPS)
+        cookie.setPath("/");
+        cookie.setMaxAge(7 * 24 * 60 * 60); // 7 days
+
+        response.addCookie(cookie);
+
         return ResponseEntity.ok(Map.of(
-                "token", token,
                 "username", user.getUsername()
         ));
     }

@@ -1,9 +1,11 @@
 package com.example.ToDoListBack.Config;
 
+import com.example.ToDoListBack.Dto.UserResponseDTO;
 import com.example.ToDoListBack.Entity.User;
 import com.example.ToDoListBack.Service.Interface.UserService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
@@ -42,12 +44,21 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                                     FilterChain filterChain)
             throws ServletException, IOException {
 
-        String authHeader = request.getHeader("Authorization");
+        String token = null;
+
+        // Extract JWT from cookies
+        if (request.getCookies() != null) {
+            for (Cookie cookie : request.getCookies()) {
+                if ("jwt".equals(cookie.getName())) {
+                    token = cookie.getValue();
+                    break;
+                }
+            }
+        }
+
         String path = request.getServletPath();
 
-        if (authHeader != null && authHeader.startsWith("Bearer ")) {
-            String token = authHeader.substring(7);
-
+        if (token != null) {
             try {
                 if (!jwtUtil.validateToken(token)) {
                     logger.warn("Invalid JWT token for path: {}", path);
@@ -62,10 +73,11 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                     User user = userService.findByUsername(username).orElse(null);
 
                     if (user != null) {
-                        // Authenticate user without roles
+                        UserResponseDTO principal = new UserResponseDTO(user);
+
                         UsernamePasswordAuthenticationToken authToken =
                                 new UsernamePasswordAuthenticationToken(
-                                        user, null, null // no authorities
+                                        principal, null, null
                                 );
 
                         authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
