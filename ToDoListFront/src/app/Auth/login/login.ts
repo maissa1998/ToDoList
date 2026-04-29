@@ -14,17 +14,21 @@ export class Login {
   username: string = '';
   password: string = '';
   error: string = '';
-  
-  constructor(private authService: UserService, private router: Router) {}
+
+  constructor(private authService: UserService, private router: Router) { }
 
   login() {
-    this.authService.login({ username: this.username, password: this.password }).subscribe({
+    this.authService.login({
+      username: this.username,
+      password: this.password
+    }).subscribe({
       next: (res) => {
-        localStorage.setItem('token', res.token);
-        this.router.navigate(['/login']); 
+        console.log("Login success:", res);
+        this.router.navigate(['/task']); 
       },
       error: (err) => {
-        this.error = err.error || 'Login failed';
+        console.error(err);
+        this.error = err.error || 'Invalid username or password';
       }
     });
   }

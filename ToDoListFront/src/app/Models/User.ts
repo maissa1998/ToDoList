@@ -1,4 +1,4 @@
-import { Task } from "./Task";
+import {TaskModel } from "./TaskModel";
 
 
 export interface User {
@@ -6,5 +6,5 @@ export interface User {
   username: string;
   password?: string; 
   email?: string;
-  tasks?: Task[];
+  tasks?: TaskModel[];
 }

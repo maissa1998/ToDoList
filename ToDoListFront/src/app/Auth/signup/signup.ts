@@ -23,17 +23,29 @@ export class Signup {
   confirmPassword: string = '';
   error: string = '';
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private userService: UserService,) { }
 
   signup() {
     if (this.user.password !== this.confirmPassword) {
       this.error = "Passwords do not match";
       return;
     }
-    console.log("User to register:", this.user);
 
-    // Example success
-    this.router.navigate(['/login']);
+    this.userService.signup(this.user).subscribe({
+      next: (response) => {
+        console.log("User registered:", response);
+        this.router.navigate(['/login']);
+      },
+      error: (err) => {
+        console.error(err);
+
+        if (err.error) {
+          this.error = err.error;
+        } else {
+          this.error = "Signup failed";
+        }
+      }
+    });
   }
 
   goToLogin() {

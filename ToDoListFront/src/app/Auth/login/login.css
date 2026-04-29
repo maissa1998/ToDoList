@@ -39,7 +39,7 @@ html, body {
 
   display: flex;
   flex-direction: column;
-  align-items: center;   /* centers inputs + buttons */
+  align-items: center;   
 }
 
 /* Pixel Button */

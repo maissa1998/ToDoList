@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Task } from '../../Models/Task';
+import { TaskModel } from '../../Models/TaskModel';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
 
@@ -12,23 +12,25 @@ export class TaskService {
 
   constructor(private http: HttpClient) {}
 
-  createTask(task: Task): Observable<Task> {
-    return this.http.post<Task>(this.apiUrl, task);
-  }
+  createTask(task: TaskModel): Observable<TaskModel> {
+  return this.http.post<TaskModel>(this.apiUrl, task, { withCredentials: true });
+}
 
-  getTasksByUser(userId: number): Observable<Task[]> {
-    return this.http.get<Task[]>(`${this.apiUrl}/user/${userId}`);
-  }
+getMyTasks(): Observable<TaskModel[]> {
+  return this.http.get<TaskModel[]>(`${this.apiUrl}/my-tasks`, {
+    withCredentials: true
+  });
+}
 
-  getTaskById(id: number): Observable<Task> {
-    return this.http.get<Task>(`${this.apiUrl}/${id}`);
-  }
+toggleTask(task: TaskModel): Observable<TaskModel> {
+  return this.http.put<TaskModel>(
+    `${environment.apiUrl}/tasks/${task.id}/toggle`,
+    {}, // empty body
+    { withCredentials: true } // <-- correctly as options
+  );
+}
 
-  updateTask(task: Task): Observable<Task> {
-    return this.http.put<Task>(`${this.apiUrl}/${task.id}`, task);
-  }
-
-  deleteTask(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/${id}`);
-  }
+deleteTask(id: number): Observable<void> {
+  return this.http.delete<void>(`${this.apiUrl}/${id}`, { withCredentials: true });
+}
 }

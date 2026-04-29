@@ -17,7 +17,11 @@ export class UserService {
     return this.http.post<UserResponseDTO>(`${this.apiUrl}/signup`, user);
   }
 
-  login(user: User): Observable<{ token: string; username: string }> {
-    return this.http.post<{ token: string; username: string }>(`${this.apiUrl}/login`, user);
-  }
+  login(user: User): Observable<{ username: string }> {
+  return this.http.post<{ username: string }>(
+    `${this.apiUrl}/login`,
+    user,
+    { withCredentials: true } 
+  );
+}
 }
